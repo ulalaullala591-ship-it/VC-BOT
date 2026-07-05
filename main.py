@@ -9,9 +9,12 @@ import os
 import time
 
 # ============================================
-# TOKEN - KEEP THIS SECRET!
+# TOKEN - READ FROM ENVIRONMENT VARIABLE (SAFE!)
 # ============================================
-TOKEN = "MTI4NTYxMjU2MTMyODUwNDkxMw.GCrn6e.qNVEEYOVWqkIpLGrHJmBiZUHiM5OyA1bgSkABQ"
+TOKEN = os.getenv('TOKEN')
+if not TOKEN:
+    raise ValueError("No TOKEN found! Set TOKEN environment variable in Render.")
+
 PREFIX = "<"
 WHITELIST_FILE = "whitelist.json"
 
@@ -360,7 +363,7 @@ async def on_ready():
 # RUN BOT
 # ============================================
 if __name__ == "__main__":
-    time.sleep(10)
+    time.sleep(5)
     try:
         bot.run(TOKEN)
     except Exception as e:
