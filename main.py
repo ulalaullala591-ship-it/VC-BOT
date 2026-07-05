@@ -3,6 +3,7 @@ from discord import app_commands
 from discord.ext import commands
 from datetime import datetime, timedelta
 import asyncio
+from typing import Optional
 import json
 import os
 
@@ -36,7 +37,7 @@ def is_whitelisted(user_id: int, guild_id: int) -> bool:
     guild_id_str = str(guild_id)
     if guild_id_str not in whitelist:
         return False
-    return str(user_id) in whitelist[guild_id_str] or user_id in whitelist[guild_id_str]
+    return str(user_id) in whitelist[guild_id_str]
 
 def add_to_whitelist(user_id: int, guild_id: int):
     guild_id_str = str(guild_id)
