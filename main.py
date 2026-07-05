@@ -8,7 +8,10 @@ import json
 import os
 import time
 
-TOKEN = "MTMxNzYwNDEzMzIzMDA4NDEzNg.G14Bai.iS8D03tSkK9Cu88Gud1OzUa5DxkJaU1pAtiYyc"
+# ============================================
+# TOKEN - KEEP THIS SECRET!
+# ============================================
+TOKEN = "MTI4NTYxMjU2MTMyODUwNDkxMw.GCrn6e.qNVEEYOVWqkIpLGrHJmBiZUHiM5OyA1bgSkABQ"
 PREFIX = "<"
 WHITELIST_FILE = "whitelist.json"
 
@@ -113,7 +116,6 @@ async def slash_join(interaction: discord.Interaction, hours: Optional[int] = 10
     await interaction.response.send_message("⏳ Joining...", ephemeral=True)
     
     try:
-        # Check whitelist
         if not is_whitelisted(interaction.user.id, interaction.guild.id) and not interaction.user.guild_permissions.administrator:
             await interaction.edit_original_response(content="❌ You are not whitelisted! Ask an admin to add you.")
             return
@@ -151,7 +153,6 @@ async def slash_join(interaction: discord.Interaction, hours: Optional[int] = 10
         
         await interaction.edit_original_response(content=None, embed=embed)
         
-        # Auto leave after hours
         await asyncio.sleep(hours * 3600)
         if interaction.guild.voice_client:
             await interaction.guild.voice_client.disconnect()
@@ -359,8 +360,8 @@ async def on_ready():
 # RUN BOT
 # ============================================
 if __name__ == "__main__":
+    time.sleep(10)
     try:
-        time.sleep(5)  # Prevent rate limiting
         bot.run(TOKEN)
     except Exception as e:
         print(f"❌ Error: {e}")
