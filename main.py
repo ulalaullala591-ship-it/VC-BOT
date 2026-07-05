@@ -6,6 +6,7 @@ import asyncio
 from typing import Optional
 import json
 import os
+import time
 
 TOKEN = "MTMxNzYwNDEzMzIzMDA4NDEzNg.G14Bai.iS8D03tSkK9Cu88Gud1OzUa5DxkJaU1pAtiYyc"
 PREFIX = "<"
@@ -125,7 +126,7 @@ async def slash_join(interaction: discord.Interaction, hours: Optional[int] = 10
             await interaction.edit_original_response(content="❌ Must be at least 1 hour!")
             return
         
-        if hours > 8760:  # 1 year max
+        if hours > 8760:
             await interaction.edit_original_response(content="❌ Max 8760 hours (1 year)!")
             return
         
@@ -354,5 +355,12 @@ async def on_ready():
     except Exception as e:
         print(f"❌ Sync error: {e}")
 
+# ============================================
+# RUN BOT
+# ============================================
 if __name__ == "__main__":
-    bot.run(TOKEN)
+    try:
+        time.sleep(5)  # Prevent rate limiting
+        bot.run(TOKEN)
+    except Exception as e:
+        print(f"❌ Error: {e}")
